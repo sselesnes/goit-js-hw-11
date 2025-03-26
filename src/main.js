@@ -10,22 +10,18 @@ const formHandler = () => {
 
   formSearch.addEventListener('submit', event => {
     event.preventDefault();
-    const fetchResultJSON = fetchImages(searchText.value);
-
-    if (fetchResultJSON) {
-      iziToast.success({
-        title: 'Success',
-        message: 'Images fetched successfully!',
-        position: 'topRight',
-      });
-      renderGallery(fetchResultJSON);
-    } else {
-      iziToast.error({
-        message:
-          'Sorry, there are no images matching your search query. Please try again!',
-        position: 'topRight',
-      });
-    }
+    fetchImages(searchText.value).then(fetchResultJSON => {
+      if (fetchResultJSON.totalHits) {
+        console.log(`Loading images, please wait...`);
+        renderGallery(fetchResultJSON);
+      } else {
+        iziToast.error({
+          message:
+            'Sorry, there are no images matching your search query. Please try again!',
+          position: 'topRight',
+        });
+      }
+    });
   });
 
   window.addEventListener('load', () => {
