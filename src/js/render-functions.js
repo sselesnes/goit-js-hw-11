@@ -27,8 +27,6 @@ export default function renderGallery(galleryJSON) {
     formSearch.insertAdjacentElement('afterend', galleryList);
   }
 
-  console.log(`Loading images, please wait...`);
-
   const lightbox = new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
     captionDelay: 250,

@@ -80,6 +80,13 @@ input::placeholder {
     background: #6c8cff;
   }
 }
+.gallery-message {
+  margin-top: 32px;
+  color: #2e2f42;
+  font-style: normal;
+  letter-spacing: 0.64px;
+  text-align: center;
+}
 .gallery {
   margin-top: 24px;
   display: flex;

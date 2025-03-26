@@ -10,10 +10,17 @@ const formHandler = () => {
 
   formSearch.addEventListener('submit', event => {
     event.preventDefault();
+
+    const loadingMessage = document.createElement('p');
+    loadingMessage.className = 'gallery-message';
+    loadingMessage.textContent = 'Loading images, please wait...';
+    formSearch.insertAdjacentElement('afterend', loadingMessage);
+
     fetchImages(searchText.value).then(fetchResultJSON => {
       if (fetchResultJSON.totalHits) {
         renderGallery(fetchResultJSON);
       } else {
+        loadingMessage.remove();
         iziToast.error({
           message:
             'Sorry, there are no images matching your search query. Please try again!',
