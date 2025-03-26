@@ -15,9 +15,8 @@ const formHandler = () => {
     if (gallery) {
       gallery.remove();
     }
-    const loadingMessage = document.createElement('p');
-    loadingMessage.className = 'gallery-message';
-    loadingMessage.textContent = 'Loading images, please wait...';
+    const loadingMessage = document.createElement('span');
+    loadingMessage.className = 'loader';
     formSearch.insertAdjacentElement('afterend', loadingMessage);
 
     fetchImages(searchText.value).then(fetchResultJSON => {
@@ -30,6 +29,7 @@ const formHandler = () => {
           message:
             'Sorry, there are no images matching your search query. Please try again!',
           position: 'topRight',
+          timeout: 2000,
         });
       }
     });
