@@ -10,7 +10,7 @@ const formHandler = () => {
 
   searchForm.addEventListener('submit', event => {
     event.preventDefault();
-    searchForm.querySelector('.gallery')?.remove();
+    document.querySelector('.gallery')?.remove();
     const cssLoader =
       document.querySelector('.loader') ?? document.createElement('span');
     cssLoader.classList.add('loader');
