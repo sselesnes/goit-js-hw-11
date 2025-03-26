@@ -11,6 +11,10 @@ const formHandler = () => {
   formSearch.addEventListener('submit', event => {
     event.preventDefault();
 
+    const gallery = document.querySelector('.gallery');
+    if (gallery) {
+      gallery.remove();
+    }
     const loadingMessage = document.createElement('p');
     loadingMessage.className = 'gallery-message';
     loadingMessage.textContent = 'Loading images, please wait...';
@@ -18,6 +22,7 @@ const formHandler = () => {
 
     fetchImages(searchText.value).then(fetchResultJSON => {
       if (fetchResultJSON.totalHits) {
+        loadingMessage.remove();
         renderGallery(fetchResultJSON);
       } else {
         loadingMessage.remove();
