@@ -1,3 +1,5 @@
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 import axios from 'axios';
 
 export default async function fetchImages(searchQuery) {
@@ -11,12 +13,17 @@ export default async function fetchImages(searchQuery) {
         q: searchQuery,
         image_type: 'photo',
         orientation: 'horizontal',
+        per_page: 40,
         safesearch: true,
       },
     });
     return response.data;
   } catch (error) {
-    console.error('Error fetching images:', error);
+    iziToast.error({
+      message: `${error}`,
+      position: 'topRight',
+      timeout: 3000,
+    });
     throw error;
   }
 }

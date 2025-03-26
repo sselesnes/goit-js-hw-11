@@ -15,16 +15,17 @@ const formHandler = () => {
     if (gallery) {
       gallery.remove();
     }
-    const loadingMessage = document.createElement('span');
-    loadingMessage.className = 'loader';
-    formSearch.insertAdjacentElement('afterend', loadingMessage);
+    const cssLoader =
+      document.querySelector('span') ?? document.createElement('span');
+    cssLoader.className = 'loader';
+    formSearch.insertAdjacentElement('afterend', cssLoader);
 
     fetchImages(searchText.value).then(fetchResultJSON => {
       if (fetchResultJSON.totalHits) {
-        loadingMessage.remove();
+        cssLoader.remove();
         renderGallery(fetchResultJSON);
       } else {
-        loadingMessage.remove();
+        cssLoader.remove();
         iziToast.error({
           message:
             'Sorry, there are no images matching your search query. Please try again!',

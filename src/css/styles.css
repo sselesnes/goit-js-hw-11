@@ -88,6 +88,8 @@ input::placeholder {
   gap: 24px 24px;
 }
 .gallery-item {
+  display: flex;
+  flex-direction: column;
   height: 200px;
   transition: transform 150ms ease-in;
 }
@@ -97,17 +99,21 @@ input::placeholder {
 }
 .gallery-image {
   width: 360px;
-  height: 200px;
+  height: 152px;
   object-fit: cover;
   transition: transform 250ms ease-in;
 }
-/* .gallery-message {
-  margin-top: 32px;
-  color: #2e2f42;
-  font-style: normal;
-  letter-spacing: 0.64px;
+.gallery-stats {
+  font-size: 12px;
   text-align: center;
-} */
+  letter-spacing: 0.48px;
+}
+.gallery-stats th {
+  font-weight: 600;
+}
+.gallery-stats td {
+  font-weight: 400;
+}
 .loader {
   margin: 35vh auto;
   display: flex;
