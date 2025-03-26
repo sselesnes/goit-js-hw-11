@@ -37,7 +37,7 @@ ul {
   display: flex;
   flex-direction: row;
   gap: 8px;
-  max-width: 400px;
+  max-width: 370px;
   margin: 0 auto;
 }
 button {

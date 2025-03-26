@@ -12,7 +12,6 @@ const formHandler = () => {
     event.preventDefault();
     fetchImages(searchText.value).then(fetchResultJSON => {
       if (fetchResultJSON.totalHits) {
-        console.log(`Loading images, please wait...`);
         renderGallery(fetchResultJSON);
       } else {
         iziToast.error({
