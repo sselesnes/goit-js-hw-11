@@ -17,16 +17,15 @@ export default function renderGallery(galleryJSON) {
         }) =>
           `<li class="gallery-item">
               <a class="gallery-link" href="${largeImageURL}">
-                  <img
-                      class="gallery-image"
-                      src="${webformatURL}"
-                      alt="${tags.split(', ').slice(0, 3).join(', ')}"
-                  />
-              </a>            
-            <table class="gallery-stats"><tr>
-            <th>Likes</th><th>Views</th><th>Comments</th><th>Downloads</th></tr><tr>
-            <td>${likes}</td><td>${views}</td><td>${comments}</td><td>${downloads}</td></tr></table>
-            </li>`
+                <img class="gallery-image" src="${webformatURL}"
+                alt="${tags
+                  .split(', ')
+                  .slice(0, 3)
+                  .join(', ')}"/></a>            
+              <table class="gallery-stats"><tr>
+                <th>Likes</th><th>Views</th><th>Comments</th><th>Downloads</th></tr><tr>
+                <td>${likes}</td><td>${views}</td><td>${comments}</td><td>${downloads}</td></tr></table>
+              </li>`
       )
       .join('');
   };
@@ -37,19 +36,12 @@ export default function renderGallery(galleryJSON) {
     gallery = document.createElement('ul');
     gallery.classList.add('gallery');
   }
-
   formSearch.insertAdjacentElement('afterend', gallery);
 
   const lightbox = new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
     captionDelay: 250,
   });
-
   gallery.innerHTML = createGalleryMarkup(galleryJSON.hits);
-
   lightbox.refresh();
-
-  // lightbox.on('close.simplelightbox', () => {
-  // formSearch.elements['search-text'].focus();
-  // });
 }
