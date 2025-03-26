@@ -31,9 +31,10 @@ const formHandler = () => {
     });
   });
 
-  window.addEventListener('load', () => {
-    searchQuery.focus();
-  });
+  const searchFocus = () => searchQuery.focus();
+  window.addEventListener('load', () => searchFocus());
+  document.body.addEventListener('click', () => searchFocus());
+  document.body.addEventListener('keydown', () => searchFocus());
 };
 
 formHandler();

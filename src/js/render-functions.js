@@ -40,4 +40,7 @@ export default function renderGallery(galleryJSON, searchForm) {
   });
   gallery.innerHTML = createGalleryMarkup(galleryJSON.hits);
   lightbox.refresh();
+  lightbox.on('closed.simplelightbox', () => {
+    searchForm.elements['search-text'].focus();
+  });
 }
