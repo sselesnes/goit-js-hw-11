@@ -36,9 +36,8 @@ ul {
 .form {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   gap: 8px;
-  max-width: 370px;
-  margin: 0 auto;
 }
 button {
   height: 40px;
@@ -51,8 +50,7 @@ button {
 }
 input {
   height: 40px;
-  max-width: 272px;
-  width: calc(100vw - 132px);
+  width: 272px;
   display: flex;
   align-items: center;
   border-radius: 4px;

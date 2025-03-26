@@ -4,28 +4,23 @@ import fetchImages from './js/pixabay-api';
 import renderGallery from './js/render-functions';
 
 const formHandler = () => {
-  const formSearch = document.querySelector('.form');
-  const searchText = formSearch.elements['search-text'];
-  searchText.autocomplete = 'off';
+  const searchForm = document.querySelector('.form');
+  const searchQuery = searchForm.elements['search-text'];
+  searchQuery.autocomplete = 'off';
 
-  formSearch.addEventListener('submit', event => {
+  searchForm.addEventListener('submit', event => {
     event.preventDefault();
-
-    const gallery = document.querySelector('.gallery');
-    if (gallery) {
-      gallery.remove();
-    }
+    searchForm.querySelector('.gallery')?.remove();
     const cssLoader =
-      document.querySelector('span') ?? document.createElement('span');
-    cssLoader.className = 'loader';
-    formSearch.insertAdjacentElement('afterend', cssLoader);
+      document.querySelector('.loader') ?? document.createElement('span');
+    cssLoader.classList.add('loader');
+    searchForm.insertAdjacentElement('afterend', cssLoader);
 
-    fetchImages(searchText.value).then(fetchResultJSON => {
+    fetchImages(searchQuery.value).then(fetchResultJSON => {
+      cssLoader.remove();
       if (fetchResultJSON.totalHits) {
-        cssLoader.remove();
-        renderGallery(fetchResultJSON);
+        renderGallery(fetchResultJSON, searchForm);
       } else {
-        cssLoader.remove();
         iziToast.error({
           message:
             'Sorry, there are no images matching your search query. Please try again!',
@@ -37,7 +32,7 @@ const formHandler = () => {
   });
 
   window.addEventListener('load', () => {
-    searchText.focus();
+    searchQuery.focus();
   });
 };
 

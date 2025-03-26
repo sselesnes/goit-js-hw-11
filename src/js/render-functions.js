@@ -1,8 +1,7 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-export default function renderGallery(galleryJSON) {
-  console.log(galleryJSON);
+export default function renderGallery(galleryJSON, searchForm) {
   const createGalleryMarkup = images => {
     return images
       .map(
@@ -30,13 +29,10 @@ export default function renderGallery(galleryJSON) {
       .join('');
   };
 
-  const formSearch = document.querySelector('.form');
-  let gallery = document.querySelector('.gallery');
-  if (!gallery) {
-    gallery = document.createElement('ul');
-    gallery.classList.add('gallery');
-  }
-  formSearch.insertAdjacentElement('afterend', gallery);
+  const gallery =
+    searchForm.querySelector('.gallery') ?? document.createElement('ul');
+  gallery.classList.add('gallery');
+  searchForm.insertAdjacentElement('afterend', gallery);
 
   const lightbox = new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
