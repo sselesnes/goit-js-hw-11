@@ -29,6 +29,10 @@ ul,
 p {
   margin: 0;
 }
+ul {
+  padding: 0;
+  list-style: none;
+}
 .form {
   display: flex;
   flex-direction: row;
@@ -75,4 +79,25 @@ input::placeholder {
   button:active {
     background: #6c8cff;
   }
+}
+.gallery {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px 24px;
+}
+.gallery-item {
+  height: 200px;
+  transition: transform 150ms ease-in;
+}
+.gallery-item:hover {
+  transform: scale(1.04);
+  transition: transform 150ms ease-in;
+}
+.gallery-image {
+  width: 360px;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 250ms ease-in;
 }
