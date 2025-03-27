@@ -5,19 +5,18 @@ import renderGallery from './js/render-functions';
 
 const searchForm = document.querySelector('.form');
 const searchQuery = searchForm.elements['search-text'];
+const searchFocus = () => searchQuery.focus();
+const cssLoader = document.querySelector('.loader');
+const gallery = document.querySelector('.gallery');
 searchQuery.autocomplete = 'off';
 
 const requestProcessing = () => {
-  document.querySelector('.gallery')?.remove();
-  const cssLoader =
-    document.querySelector('.loader') ?? document.createElement('span');
-  cssLoader.classList.add('loader');
-  searchForm.insertAdjacentElement('afterend', cssLoader);
-
+  gallery.innerHTML = '';
+  cssLoader.classList.add('is-active');
   fetchImages(searchQuery.value).then(fetchResultJSON => {
-    cssLoader.remove();
+    cssLoader.classList.remove('is-active');
     if (fetchResultJSON.totalHits) {
-      renderGallery(fetchResultJSON, searchForm);
+      renderGallery(fetchResultJSON, gallery, searchFocus);
     } else {
       iziToast.error({
         message:
@@ -34,16 +33,16 @@ const formHandler = () => {
     event.preventDefault();
     requestProcessing();
   });
-
-  const searchFocus = () => searchQuery.focus();
-  window.addEventListener('load', () => searchFocus());
-  document.body.addEventListener('click', () => searchFocus());
-  document.body.addEventListener('keydown', () => searchFocus());
 };
+
+window.addEventListener('load', () => searchFocus());
+document.body.addEventListener('click', () => searchFocus());
+document.body.addEventListener('keydown', () => searchFocus());
 
 const urlParams = new URLSearchParams(window.location.search).get('q');
 if (urlParams) {
   searchQuery.value = urlParams;
   requestProcessing();
 }
+
 formHandler();
