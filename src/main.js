@@ -51,9 +51,5 @@ const urlHandler = query => {
   return;
 };
 
-if (urlHandler()) {
-  console.log(urlHandler());
-  searchQuery.value = urlHandler();
-  requestProcessing();
-}
+urlHandler() && ((searchQuery.value = urlHandler()), requestProcessing());
 formHandler();
