@@ -26,7 +26,8 @@ h4,
 h5,
 h6,
 ul,
-p {
+p,
+a {
   margin: 0;
 }
 ul {
@@ -90,7 +91,6 @@ input::placeholder {
   flex-direction: column;
   height: 200px;
   border: 1px solid #808080;
-
   transition: transform 150ms ease-in;
 }
 .gallery-item:hover {
@@ -104,7 +104,7 @@ input::placeholder {
   transition: transform 250ms ease-in;
 }
 .gallery-stats {
-  padding-bottom: 4px;
+  padding: 0 0 4px 8px;
   font-size: 12px;
   text-align: center;
   letter-spacing: 0.48px;
