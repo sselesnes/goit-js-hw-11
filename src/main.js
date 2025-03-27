@@ -44,13 +44,15 @@ document.body.addEventListener('keydown', () => searchFocus());
 const urlHandle = query => {
   const url = new URL(window.location.href);
   const params = new URLSearchParams(url.search);
+  if (typeof query == 'undefined') return params.get('q');
   query ? params.set('q', query) : params.delete('q');
   url.search = params.toString();
   window.history.pushState({}, '', url);
-  return params.get('q');
+  return;
 };
 
 if (urlHandle()) {
+  console.log(urlHandle());
   searchQuery.value = urlHandle();
   requestProcessing();
 }
