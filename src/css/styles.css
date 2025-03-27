@@ -96,7 +96,7 @@ input::placeholder {
 }
 @media (max-width: 540px) {
   body {
-    margin: 8px;
+    margin: 16px 8px;
   }
   .gallery {
     grid-template-columns: 1fr;
