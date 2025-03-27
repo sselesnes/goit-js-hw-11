@@ -17,10 +17,7 @@ export default function renderGallery(galleryJSON, gallery, searchInput) {
           `<li class="gallery-item">
               <a class="gallery-link" href="${largeImageURL}">
                 <img class="gallery-image" src="${webformatURL}"
-                alt="${tags
-                  .split(', ')
-                  .slice(0, 3)
-                  .join(', ')}"/></a>            
+                alt="${tags.split(', ').slice(0, 3).join(', ')}"/></a>
               <table class="gallery-stats"><tr>
                 <th>Likes</th><th>Views</th><th>Comments</th><th>Downloads</th></tr><tr>
                 <td>${likes}</td><td>${views}</td><td>${comments}</td><td>${downloads}</td></tr></table>
@@ -29,7 +26,7 @@ export default function renderGallery(galleryJSON, gallery, searchInput) {
       .join('');
   };
 
-  const lightbox = new SimpleLightbox(gallery, {
+  const lightbox = new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
     captionDelay: 250,
   });

@@ -17,6 +17,7 @@ const formHandler = () => {
 
     fetchImages(searchInput.value).then(fetchResultJSON => {
       cssLoader.classList.remove('is-active');
+
       if (fetchResultJSON.totalHits) {
         renderGallery(fetchResultJSON, gallery, searchInput);
       } else {
