@@ -6,6 +6,7 @@ import renderGallery from './js/render-functions';
 const formHandler = () => {
   const searchForm = document.querySelector('.form');
   const searchInput = searchForm.elements['search-text'];
+  const searchFocus = () => searchInput.focus();
   const cssLoader = document.querySelector('.loader');
   const gallery = document.querySelector('.gallery');
   searchInput.autocomplete = 'off';
@@ -19,7 +20,7 @@ const formHandler = () => {
       cssLoader.classList.remove('is-active');
 
       if (fetchResultJSON.totalHits) {
-        renderGallery(fetchResultJSON, gallery, searchInput);
+        renderGallery(fetchResultJSON, gallery, searchFocus);
       } else {
         iziToast.error({
           message:
@@ -31,7 +32,6 @@ const formHandler = () => {
     });
   });
 
-  const searchFocus = () => searchInput.focus();
   window.addEventListener('load', () => searchFocus());
   document.body.addEventListener('click', () => searchFocus());
   document.body.addEventListener('keydown', () => searchFocus());
