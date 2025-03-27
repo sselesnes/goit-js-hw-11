@@ -16,8 +16,10 @@ const requestProcessing = () => {
   fetchImages(searchQuery.value).then(fetchResultJSON => {
     cssLoader.classList.remove('is-active');
     if (fetchResultJSON.totalHits) {
+      urlHandle(searchQuery.value);
       renderGallery(fetchResultJSON, gallery, searchFocus);
     } else {
+      urlHandle('');
       iziToast.error({
         message:
           'Sorry, there are no images matching your search query. Please try again!',
@@ -39,10 +41,17 @@ window.addEventListener('load', () => searchFocus());
 document.body.addEventListener('click', () => searchFocus());
 document.body.addEventListener('keydown', () => searchFocus());
 
-const urlParams = new URLSearchParams(window.location.search).get('q');
-if (urlParams) {
-  searchQuery.value = urlParams;
+const urlHandle = query => {
+  const url = new URL(window.location.href);
+  const params = new URLSearchParams(url.search);
+  query ? params.set('q', query) : params.delete('q');
+  url.search = params.toString();
+  window.history.pushState({}, '', url);
+  return params.get('q');
+};
+
+if (urlHandle()) {
+  searchQuery.value = urlHandle();
   requestProcessing();
 }
-
 formHandler();
