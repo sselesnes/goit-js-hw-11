@@ -29,8 +29,7 @@ export default function renderGallery(galleryJSON, searchForm) {
       .join('');
   };
 
-  const gallery =
-    searchForm.querySelector('.gallery') ?? document.createElement('ul');
+  const gallery = document.createElement('ul');
   gallery.classList.add('gallery');
   searchForm.insertAdjacentElement('afterend', gallery);
 
