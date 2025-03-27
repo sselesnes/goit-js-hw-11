@@ -1,7 +1,7 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-export default function renderGallery(galleryJSON, searchForm) {
+export default function renderGallery(galleryJSON, gallery, searchInput) {
   const createGalleryMarkup = images => {
     return images
       .map(
@@ -29,17 +29,13 @@ export default function renderGallery(galleryJSON, searchForm) {
       .join('');
   };
 
-  const gallery = document.createElement('ul');
-  gallery.classList.add('gallery');
-  searchForm.insertAdjacentElement('afterend', gallery);
-
-  const lightbox = new SimpleLightbox('.gallery a', {
+  const lightbox = new SimpleLightbox(gallery, {
     captionsData: 'alt',
     captionDelay: 250,
   });
   gallery.innerHTML = createGalleryMarkup(galleryJSON.hits);
   lightbox.refresh();
   lightbox.on('closed.simplelightbox', () => {
-    searchForm.elements['search-text'].focus();
+    searchInput.focus();
   });
 }

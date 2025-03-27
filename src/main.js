@@ -5,21 +5,20 @@ import renderGallery from './js/render-functions';
 
 const formHandler = () => {
   const searchForm = document.querySelector('.form');
-  const searchQuery = searchForm.elements['search-text'];
-  searchQuery.autocomplete = 'off';
+  const searchInput = searchForm.elements['search-text'];
+  const cssLoader = document.querySelector('.loader');
+  const gallery = document.querySelector('.gallery');
+  searchInput.autocomplete = 'off';
 
   searchForm.addEventListener('submit', event => {
     event.preventDefault();
-    document.querySelector('.gallery')?.remove();
-    const cssLoader =
-      document.querySelector('.loader') ?? document.createElement('span');
-    cssLoader.classList.add('loader');
-    searchForm.insertAdjacentElement('afterend', cssLoader);
+    gallery.innerHTML = '';
+    cssLoader.classList.add('is-active');
 
-    fetchImages(searchQuery.value).then(fetchResultJSON => {
-      cssLoader.remove();
+    fetchImages(searchInput.value).then(fetchResultJSON => {
+      cssLoader.classList.remove('is-active');
       if (fetchResultJSON.totalHits) {
-        renderGallery(fetchResultJSON, searchForm);
+        renderGallery(fetchResultJSON, gallery, searchInput);
       } else {
         iziToast.error({
           message:
@@ -31,7 +30,7 @@ const formHandler = () => {
     });
   });
 
-  const searchFocus = () => searchQuery.focus();
+  const searchFocus = () => searchInput.focus();
   window.addEventListener('load', () => searchFocus());
   document.body.addEventListener('click', () => searchFocus());
   document.body.addEventListener('keydown', () => searchFocus());

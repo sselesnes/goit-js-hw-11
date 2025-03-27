@@ -115,7 +115,7 @@ input::placeholder {
 .gallery-stats td {
   font-weight: 400;
 }
-.loader {
+.loader.is-active {
   margin: 35vh auto;
   display: flex;
   width: 48px;
@@ -126,7 +126,7 @@ input::placeholder {
   animation: rotation 1s linear infinite;
   position: relative;
 }
-.loader::after {
+.loader.is-active::after {
   content: '';
   box-sizing: border-box;
   position: absolute;
