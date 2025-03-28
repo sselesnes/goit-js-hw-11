@@ -43,8 +43,7 @@ const requestHandler = request => {
 const formHandler = () => {
   searchForm.addEventListener('submit', event => {
     event.preventDefault();
-    searchQuery.value = searchQuery.value.trim();
-    requestHandler(searchQuery.value);
+    requestHandler(searchQuery.value.trim());
   });
 };
 
