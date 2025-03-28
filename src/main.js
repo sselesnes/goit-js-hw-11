@@ -61,6 +61,5 @@ window.addEventListener('load', () => searchFocus());
 document.body.addEventListener('click', () => searchFocus());
 document.body.addEventListener('keydown', () => searchFocus());
 
-// urlHandler() && ((searchQuery.value = urlHandler()), requestHandler(searchQuery.value));
 urlHandler() && requestHandler(urlHandler());
 formHandler();
