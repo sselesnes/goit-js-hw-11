@@ -25,6 +25,11 @@ export default function renderGallery(galleryJSON, gallery, searchFocus) {
       .join('');
   };
 
+  if (!galleryJSON) {
+    gallery.innerHTML = '';
+    return;
+  }
+
   const lightbox = new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
     captionDelay: 250,
