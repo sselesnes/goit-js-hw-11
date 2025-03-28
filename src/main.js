@@ -13,7 +13,7 @@ searchQuery.autocomplete = 'off';
 const requestHandler = () => {
   renderGallery(null, gallery);
   if (!searchQuery.value.trim()) {
-    urlHandler('');
+    urlHandler(null);
     iziToast.warning({
       message: 'Sorry, the request cannot be empty. Please try again!',
       position: 'topRight',
@@ -28,7 +28,7 @@ const requestHandler = () => {
       urlHandler(searchQuery.value);
       renderGallery(fetchResultJSON, gallery, searchFocus);
     } else {
-      urlHandler('');
+      urlHandler(null);
       iziToast.error({
         message:
           'Sorry, there are no images matching your search query. Please try again!',
