@@ -11,6 +11,7 @@ const gallery = document.querySelector('.gallery');
 searchQuery.autocomplete = 'off';
 
 const requestHandler = request => {
+  searchQuery.value = request;
   renderGallery(null, gallery);
   if (!request) {
     urlHandler(null);
