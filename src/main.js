@@ -10,9 +10,9 @@ const cssLoader = document.querySelector('.loader');
 const gallery = document.querySelector('.gallery');
 searchQuery.autocomplete = 'off';
 
-const requestHandler = () => {
+const requestHandler = request => {
   renderGallery(null, gallery);
-  if (!searchQuery.value) {
+  if (!request) {
     urlHandler(null);
     iziToast.warning({
       message: 'Sorry, the request cannot be empty. Please try again!',
@@ -22,10 +22,10 @@ const requestHandler = () => {
     return;
   }
   cssLoader.classList.add('is-active');
-  fetchImages(searchQuery.value).then(fetchResultJSON => {
+  fetchImages(request).then(fetchResultJSON => {
     cssLoader.classList.remove('is-active');
     if (fetchResultJSON.totalHits) {
-      urlHandler(searchQuery.value);
+      urlHandler(request);
       renderGallery(fetchResultJSON, gallery, searchFocus);
     } else {
       urlHandler(null);
@@ -43,7 +43,7 @@ const formHandler = () => {
   searchForm.addEventListener('submit', event => {
     event.preventDefault();
     searchQuery.value = searchQuery.value.trim();
-    requestHandler();
+    requestHandler(searchQuery.value);
   });
 };
 
@@ -61,5 +61,6 @@ window.addEventListener('load', () => searchFocus());
 document.body.addEventListener('click', () => searchFocus());
 document.body.addEventListener('keydown', () => searchFocus());
 
-urlHandler() && ((searchQuery.value = urlHandler()), requestHandler());
+urlHandler() &&
+  ((searchQuery.value = urlHandler()), requestHandler(searchQuery.value));
 formHandler();
