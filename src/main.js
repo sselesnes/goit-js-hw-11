@@ -12,7 +12,7 @@ searchQuery.autocomplete = 'off';
 
 const requestHandler = () => {
   renderGallery(null, gallery);
-  if (!searchQuery.value.trim()) {
+  if (!searchQuery.value) {
     urlHandler(null);
     iziToast.warning({
       message: 'Sorry, the request cannot be empty. Please try again!',
@@ -42,6 +42,7 @@ const requestHandler = () => {
 const formHandler = () => {
   searchForm.addEventListener('submit', event => {
     event.preventDefault();
+    searchQuery.value = searchQuery.value.trim();
     requestHandler();
   });
 };
