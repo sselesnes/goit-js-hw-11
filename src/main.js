@@ -6,7 +6,6 @@ import renderGallery, { clearGallery } from './js/render-functions';
 const searchForm = document.querySelector('.form');
 const searchQuery = searchForm.elements['search-text'];
 const cssLoader = document.querySelector('.loader');
-const gallery = document.querySelector('.gallery');
 
 export function searchFocus() {
   searchQuery.focus();
@@ -14,7 +13,7 @@ export function searchFocus() {
 
 function requestHandler(request) {
   searchQuery.value = request;
-  clearGallery(gallery);
+  clearGallery();
 
   if (!request) {
     urlHandler(null);
@@ -31,7 +30,7 @@ function requestHandler(request) {
     .then(fetchResultJSON => {
       if (fetchResultJSON.totalHits) {
         urlHandler(request);
-        renderGallery(fetchResultJSON.hits, gallery);
+        renderGallery(fetchResultJSON.hits);
       } else {
         urlHandler(null);
         iziToast.error({
