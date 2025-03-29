@@ -8,7 +8,7 @@ const searchQuery = searchForm.elements['search-text'];
 const cssLoader = document.querySelector('.loader');
 const gallery = document.querySelector('.gallery');
 
-function searchFocus() {
+export function searchFocus() {
   searchQuery.focus();
 }
 
@@ -31,7 +31,7 @@ function requestHandler(request) {
     .then(fetchResultJSON => {
       if (fetchResultJSON.totalHits) {
         urlHandler(request);
-        renderGallery(fetchResultJSON.hits, gallery, searchFocus);
+        renderGallery(fetchResultJSON.hits, gallery);
       } else {
         urlHandler(null);
         iziToast.error({
