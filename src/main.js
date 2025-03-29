@@ -1,18 +1,21 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import fetchImages from './js/pixabay-api';
-import renderGallery from './js/render-functions';
+import renderGallery, { clearGallery } from './js/render-functions';
 
 const searchForm = document.querySelector('.form');
 const searchQuery = searchForm.elements['search-text'];
-const searchFocus = () => searchQuery.focus();
 const cssLoader = document.querySelector('.loader');
 const gallery = document.querySelector('.gallery');
-searchQuery.autocomplete = 'off';
 
-const requestHandler = request => {
+function searchFocus() {
+  searchQuery.focus();
+}
+
+function requestHandler(request) {
   searchQuery.value = request;
-  renderGallery(null, gallery);
+  clearGallery(gallery);
+
   if (!request) {
     urlHandler(null);
     iziToast.warning({
@@ -22,32 +25,44 @@ const requestHandler = request => {
     });
     return;
   }
+
   cssLoader.classList.add('is-active');
-  fetchImages(request).then(fetchResultJSON => {
-    cssLoader.classList.remove('is-active');
-    if (fetchResultJSON.totalHits) {
-      urlHandler(request);
-      renderGallery(fetchResultJSON, gallery, searchFocus);
-    } else {
-      urlHandler(null);
+  fetchImages(request)
+    .then(fetchResultJSON => {
+      if (fetchResultJSON.totalHits) {
+        urlHandler(request);
+        renderGallery(fetchResultJSON.hits, gallery, searchFocus);
+      } else {
+        urlHandler(null);
+        iziToast.error({
+          message:
+            'Sorry, there are no images matching your search query. Please try again!',
+          position: 'topRight',
+          timeout: 2000,
+        });
+      }
+    })
+    .catch(error => {
       iziToast.error({
         message:
-          'Sorry, there are no images matching your search query. Please try again!',
+          'Sorry, there was an error with your request. Please try again!',
         position: 'topRight',
         timeout: 2000,
       });
-    }
-  });
-};
+    })
+    .finally(() => {
+      cssLoader.classList.remove('is-active');
+    });
+}
 
-const formHandler = () => {
+function formHandler() {
   searchForm.addEventListener('submit', event => {
     event.preventDefault();
     requestHandler(searchQuery.value.trim());
   });
-};
+}
 
-const urlHandler = query => {
+function urlHandler(query) {
   const url = new URL(window.location.href);
   const params = new URLSearchParams(url.search);
   if (typeof query == 'undefined') return params.get('q');
@@ -55,7 +70,7 @@ const urlHandler = query => {
   url.search = params.toString();
   window.history.pushState({}, '', url);
   return;
-};
+}
 
 window.addEventListener('load', () => searchFocus());
 document.body.addEventListener('click', () => searchFocus());
