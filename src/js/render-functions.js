@@ -1,12 +1,13 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
+
 export default function renderGallery(images, gallery, searchFocus) {
   gallery.innerHTML = createGalleryMarkup(images);
-  const lightbox = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionDelay: 250,
-  });
   lightbox.refresh();
   lightbox.on('closed.simplelightbox', () => {
     searchFocus();
