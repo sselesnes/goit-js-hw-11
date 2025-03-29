@@ -44,8 +44,7 @@ function requestHandler(request) {
     })
     .catch(error => {
       iziToast.error({
-        message:
-          'Sorry, there was an error with your request. Please try again!',
+        message: `Sorry, there was an "${error}" with your request. Please try again!`,
         position: 'topRight',
         timeout: 2000,
       });
